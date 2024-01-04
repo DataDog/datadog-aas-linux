@@ -14,7 +14,7 @@ _Note: Currently Java, NODE, .NET, PHP and Python are supported._
 ##### Node, .NET, PHP or Python
 Add the following to the startup command box
 
-      curl -s https://raw.githubusercontent.com/DataDog/datadog-aas-linux/v1.6.0/datadog_wrapper | bash
+      curl -s https://raw.githubusercontent.com/DataDog/datadog-aas-linux/v1.7.0/datadog_wrapper | bash
 
 ![](https://p-qkfgo2.t2.n0.cdn.getcloudapp.com/items/8LuqpR7e/6a9bf63d-5169-49d0-a68a-20e6e3009d47.jpg?v=7704a16bc91a6a57caf8befd84204415)
 
