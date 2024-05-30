@@ -25,6 +25,7 @@ if [ ! -z "$(git status --porcelain)" ]; then
 fi
 
 #Configuring a git user
+git config --unset-all http.https://github.com/.extraheader
 git config user.name github-actions
 git config user.email github-actions@github.com
 
