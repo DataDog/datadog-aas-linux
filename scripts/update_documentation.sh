@@ -20,7 +20,7 @@ print_color "Creating a Github PR to update documentation"
 
 if [ ! -d $DOCUMENTATION_REPO_PATH ]; then
     print_color "Documentation directory does not exist, cloning into $DOCUMENTATION_REPO_PATH"
-    git clone git@github.com:TopherC/documentation $DOCUMENTATION_REPO_PATH
+    git clone git@github.com:TophrC-dd/documentation $DOCUMENTATION_REPO_PATH
 fi
 
 cd $DOCUMENTATION_REPO_PATH
