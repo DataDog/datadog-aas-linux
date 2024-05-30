@@ -10,7 +10,7 @@
 GREEN="\033[0;32m"
 NC="\033[0;0m"
 DOCUMENTATION_REPO_PATH=$GITHUB_WORKSPACE/Dataog-documentation
-DOCUMENTATION_FILE=./content/en/serverless/azure_app_services/azure_app_services_linux.md
+DOCUMENTATION_FILE=$DOCUMENTATION_REPO_PATH/content/en/serverless/azure_app_services/azure_app_services_linux.md
 
 function print_color {
     printf "$GREEN$1$NC\n"
@@ -26,7 +26,7 @@ fi
 
 print_color "Checking out new branch that has version changes"
 git checkout -b $USER/bump-aas-wrapper-version-$VERSION
-sed -i '.' -e '/.*datadog-aas-linux/{' -e 's/v[0-9]*.[0-9]*.[0-9]*/'"$VERSION"'/' -e '}' $DOCUMENTATION_FILE
+sed -i '' -e '/.*datadog-aas-linux/{' -e 's/v[0-9]*.[0-9]*.[0-9]*/'"$VERSION"'/' -e '}' $DOCUMENTATION_FILE
 git add $DOCUMENTATION_FILE
 
 print_color "Creating commit -- please tap your Yubikey if prompted"

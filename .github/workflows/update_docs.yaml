@@ -10,14 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Make script executeable
         run: chmod + ./scripts/update_documentation.sh
-      - name: Documentation-Checkout
-        uses: actions/checkout@v3
+      - name: Update Documentation
+        uses: actions/checkout@v4
         with:
           repository: 'TophrC-dd/documentation'
           sparse-checkout: 'content/en/serverless/azure_app_services/azure_app_services_linux.md'
           path: 'Dataog-documentation'
-      - name: Execute update scripts
         run: VERSION=${{ github.ref_name }} ./scripts/update_documentation.sh
