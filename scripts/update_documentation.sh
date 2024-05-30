@@ -10,7 +10,7 @@
 GREEN="\033[0;32m"
 NC="\033[0;0m"
 DOCUMENTATION_REPO_PATH=$GITHUB_WORKSPACE/Dataog-documentation
-DOCUMENTATION_FILE=$DOCUMENTATION_REPO_PATH/content/en/serverless/azure_app_services/azure_app_services_linux.md
+DOCUMENTATION_FILE=./content/en/serverless/azure_app_services/azure_app_services_linux.md
 
 function print_color {
     printf "$GREEN$1$NC\n"
@@ -23,6 +23,10 @@ if [ ! -z "$(git status --porcelain)" ]; then
     print_color "Documentation directory is dirty -- please stash or save your changes and manually create the PR"
     exit 1
 fi
+
+#Configuring a git user
+git config user.name github-actions
+git config user.email github-actions@github.com
 
 print_color "Checking out new branch that has version changes"
 git checkout -b $USER/bump-aas-wrapper-version-$VERSION
