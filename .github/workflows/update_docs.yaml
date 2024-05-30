@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: 'TophrC-dd/documentation'
-          sparse-checkout: '/content/en/serverless/azure_app_services/azure_app_services_linux.md'
+          sparse-checkout: 'content/en/serverless/azure_app_services/azure_app_services_linux.md'
           path: '$HOME/go/src/github.com/DataDog/documentation'
       - name: Execute update scripts
         run: VERSION=${{ github.ref_name }} ./scripts/update_documentation.sh
