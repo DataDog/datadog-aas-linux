@@ -9,7 +9,7 @@
 
 GREEN="\033[0;32m"
 NC="\033[0;0m"
-DOCUMENTATION_REPO_PATH=$HOME/go/src/github.com/DataDog/documentation
+DOCUMENTATION_REPO_PATH=$GITHUB_WORKSPACE/Dataog-documentation
 DOCUMENTATION_FILE=./content/en/serverless/azure_app_services/azure_app_services_linux.md
 
 function print_color {
