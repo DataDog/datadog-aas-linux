@@ -9,25 +9,31 @@
 
 GREEN="\033[0;32m"
 NC="\033[0;0m"
-DOCUMENTATION_REPO_PATH=$GITHUB_WORKSPACE/Dataog-documentation
+DOCUMENTATION_REPO_PATH=$HOME/go/src/github.com/DataDog/documentation
 DOCUMENTATION_FILE=./content/en/serverless/azure_app_services/azure_app_services_linux.md
 
 function print_color {
     printf "$GREEN$1$NC\n"
 }
 
+print_color "Creating a Github PR to update documentation"
+
+if [ ! -d $DOCUMENTATION_REPO_PATH ]; then
+    print_color "Documentation directory does not exist, cloning into $DOCUMENTATION_REPO_PATH"
+    git clone git@github.com:TophrC-dd/documentation $DOCUMENTATION_REPO_PATH
+fi
+
 cd $DOCUMENTATION_REPO_PATH
 
-# Make sure they don't have any local changes - this shouldn't happen as the file is checked out on action execution
+# Make sure they don't have any local changes
 if [ ! -z "$(git status --porcelain)" ]; then
     print_color "Documentation directory is dirty -- please stash or save your changes and manually create the PR"
     exit 1
 fi
 
-#Configuring a git user
-git config --unset-all http.https://github.com/.extraheader
-git config user.name github-actions
-git config user.email github-actions@github.com
+print_color "Pulling latest changes from Github"
+git checkout master
+git pull
 
 print_color "Checking out new branch that has version changes"
 git checkout -b $USER/bump-aas-wrapper-version-$VERSION
@@ -37,6 +43,7 @@ git add $DOCUMENTATION_FILE
 print_color "Creating commit -- please tap your Yubikey if prompted"
 git commit -m "Bump AAS-WRAPPER to version $VERSION"
 git push --set-upstream origin $USER/bump-aas-wrapper-version-$VERSION
+dd-pr
 
 # Reset documentation repo to clean a state that's tracking master
 print_color "Resetting documentation git branch to master"
