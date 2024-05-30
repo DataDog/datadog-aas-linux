@@ -15,7 +15,7 @@ jobs:
         run: chmod + ./scripts/update_documentation.sh
       - name: Documentation-Checkout
         uses: actions/checkout@v3
-      - with:
+        with:
           repository: 'TophrC-dd/documentation'
           sparse-checkout: '/content/en/serverless/azure_app_services/azure_app_services_linux.md'
           path: '$HOME/go/src/github.com/DataDog/documentation'
