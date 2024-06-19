@@ -101,6 +101,7 @@ getRuntimeDependencies() {
         else
             apk add curl
             apk add libc6-compat
+            ln -sfv ld-linux-x86-64.so.2 /lib/libresolv.so.2
         fi
     fi
 }
