@@ -4,6 +4,7 @@ main() {
     # Required to add the AAS metadata
     export DD_AZURE_APP_SERVICES=1
     export DD_HOSTNAME="none"
+    export DD_APM_REMOTE_TAGGER=false
 
     # Remote Config does not work in AAS. It must be disabled.
     export DD_REMOTE_CONFIGURATION_ENABLED=false
