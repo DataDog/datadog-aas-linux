@@ -162,7 +162,7 @@ setUpNodeEnv() {
     if [[ "$NODE_RUNTIME_VERSION" =~ ^v16.* ]]; then
         yarn add "dd-trace@4.38.1" || return
     else
-        yarn add dd-trace || return
+        yarn add "dd-trace@5.18.0" || return
     fi
 
     ORIG_NODE_OPTIONS=$NODE_OPTIONS
