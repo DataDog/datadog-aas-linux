@@ -159,12 +159,8 @@ setUpNodeEnv() {
     echo "Setting up Datadog tracing for Node"
     echo "Installing Node tracer"
 
-    if [ -z "${DD_NODE_TRACER_VERSION_4}" ]; then
-        DD_NODE_TRACER_VERSION_4=4.38.1
-    fi
-    if [ -z "${DD_NODE_TRACER_VERSION_5}" ]; then
-        DD_NODE_TRACER_VERSION_5=5.18.0
-    fi
+    local DD_NODE_TRACER_VERSION_4=4.38.1
+    local DD_NODE_TRACER_VERSION_5=5.18.0
 
     if [[ "$NODE_RUNTIME_VERSION" =~ ^v16.* ]]; then
         yarn add "dd-trace@$DD_NODE_TRACER_VERSION_4" || return
