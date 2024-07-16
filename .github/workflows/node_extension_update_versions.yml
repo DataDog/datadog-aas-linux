@@ -3,7 +3,7 @@ name: Update Versions for the Node Tracer
 on:
   # schedule:
   #   - cron: '0 14 * * *' # 2:00 PM UTC which is morning in New York
-  workflow_dispatch:
+  push:
 
 jobs:
   bump_version:
