@@ -1,0 +1,19 @@
+name: Do we have python?
+
+on:
+  push:
+
+jobs:
+  do-we-have-python:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Modify build-packages
+        id: version
+        run: |
+          set -euo pipefail
+
+          python --version
