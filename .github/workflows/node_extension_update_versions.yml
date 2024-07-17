@@ -30,13 +30,13 @@ jobs:
 
           TRACER_RESPONSE=$(curl -s "https://api.github.com/repos/datadog/dd-trace-js/releases")
 
-          V4_VERSION=$(echo "$TRACER_RESPONSE" | jq -r --arg pattern "4\.[0-9]+\.[0-9]+" '.[] | select(.tag_name | test($pattern)) | .tag_name' | sort -V | tail -n 1)
+          V4_VERSION=$(echo "$TRACER_RESPONSE" | jq -r --arg pattern "4\.[0-9]+\.[0-9]+" '.[] | select(.tag_name | test($pattern)) | .tag_name' | tr -d "v" | sort -V | tail -n 1)
           if [ -z "$V4_VERSION" ]; then
             echo "Could not find a version for the Node Tracer V4"
             exit 1
           fi
 
-          V5_VERSION=$(echo "$TRACER_RESPONSE" | jq -r --arg pattern "5\.[0-9]+\.[0-9]+" '.[] | select(.tag_name | test($pattern)) | .tag_name' | sort -V | tail -n 1)
+          V5_VERSION=$(echo "$TRACER_RESPONSE" | jq -r --arg pattern "5\.[0-9]+\.[0-9]+" '.[] | select(.tag_name | test($pattern)) | .tag_name' | tr -d "v" | sort -V | tail -n 1)
           if [ -z "$V5_VERSION" ]; then
             echo "Could not find a version for the Node Tracer V5"
             exit 1
@@ -44,7 +44,7 @@ jobs:
 
           if [ "$V4_VERSION" != "$CURRENT_V4_VERSION" ]; then
             echo "Updating DD_NODE_TRACER_VERSION_4 from $CURRENT_V4_VERSION to $V4_VERSION"
-            sed -i "s/local DD_NODE_TRACER_VERSION_4=\"$CURRENT_V4_VERSION\"/local DD_NODE_TRACER_VERSION_4=\"$V4_VERSION\"/" datadog_wrapper
+            sed -i '' -e "s/local DD_NODE_TRACER_VERSION_4=$CURRENT_V4_VERSION/local DD_NODE_TRACER_VERSION_4=$V4_VERSION/" datadog_wrapper
 
             PR_TITLE="Update Node Tracer V4 to $V4_VERSION"
             PR_BODY="Updated Node Tracer V4 from $CURRENT_V4_VERSION to $V4_VERSION"
@@ -54,7 +54,7 @@ jobs:
 
           if [ "$V5_VERSION" != "$CURRENT_V5_VERSION" ]; then
             echo "Updating DD_NODE_TRACER_VERSION_5 from $CURRENT_V5_VERSION to $V5_VERSION"
-            sed -i "s/local DD_NODE_TRACER_VERSION_5=\"$CURRENT_V5_VERSION\"/local DD_NODE_TRACER_VERSION_5=\"$V5_VERSION\"/" datadog_wrapper
+            sed -i '' -e "s/local DD_NODE_TRACER_VERSION_5=$CURRENT_V5_VERSION/local DD_NODE_TRACER_VERSION_5=$V5_VERSION/" datadog_wrapper
 
             PR_TITLE="Update Node Tracer V5 to $V5_VERSION"
             PR_BODY="Updated Node Tracer V5 from $CURRENT_V5_VERSION to $V5_VERSION"
