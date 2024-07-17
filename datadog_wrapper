@@ -108,8 +108,8 @@ getRuntimeDependencies() {
 }
 
 getBinaries() {
-    # Check if we have already installed this version and if we successfully downloaded binaries before
-    if [ ! -d "${DD_BINARY_DIR}" -a ! -d "${DD_AAS_LINUX_VERSION}" ]; then
+    # Check if we have already installed this version or if we successfully downloaded binaries before
+    if [ ! -d "${DD_BINARY_DIR}" ] || [ -z "$(ls -A "${DD_BINARY_DIR}")" ]; then
 
         FILE="datadog-aas-${DD_AAS_LINUX_VERSION}.zip"
 
