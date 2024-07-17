@@ -16,4 +16,4 @@ jobs:
         run: |
           set -euo pipefail
 
-          python .github/workflows/test_python.py
+          python .github/workflows/test_python.py --tracer python
