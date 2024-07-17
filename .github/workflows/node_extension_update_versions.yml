@@ -16,6 +16,8 @@ jobs:
       - name: Modify build-packages
         id: version
         run: |
+          set -xe
+
           CURRENT_V4_VERSION=$(awk '/DD_NODE_TRACER_VERSION_4=/{print}' datadog_wrapper | awk -F '=' '{print $2}' | tr -d '"')
           if [ -z "$CURRENT_V4_VERSION" ]; then
             echo "DD_NODE_TRACER_VERSION_4 is not set"
@@ -44,7 +46,7 @@ jobs:
 
           if [ "$V4_VERSION" != "$CURRENT_V4_VERSION" ]; then
             echo "Updating DD_NODE_TRACER_VERSION_4 from $CURRENT_V4_VERSION to $V4_VERSION"
-            sed -i '' -e "s/local DD_NODE_TRACER_VERSION_4=$CURRENT_V4_VERSION/local DD_NODE_TRACER_VERSION_4=$V4_VERSION/" datadog_wrapper
+            sed -i -e "s/local DD_NODE_TRACER_VERSION_4=$CURRENT_V4_VERSION/local DD_NODE_TRACER_VERSION_4=$V4_VERSION/" ./datadog_wrapper
 
             PR_TITLE="Update Node Tracer V4 to $V4_VERSION"
             PR_BODY="Updated Node Tracer V4 from $CURRENT_V4_VERSION to $V4_VERSION"
@@ -54,7 +56,7 @@ jobs:
 
           if [ "$V5_VERSION" != "$CURRENT_V5_VERSION" ]; then
             echo "Updating DD_NODE_TRACER_VERSION_5 from $CURRENT_V5_VERSION to $V5_VERSION"
-            sed -i '' -e "s/local DD_NODE_TRACER_VERSION_5=$CURRENT_V5_VERSION/local DD_NODE_TRACER_VERSION_5=$V5_VERSION/" datadog_wrapper
+            sed -i -e "s/local DD_NODE_TRACER_VERSION_5=$CURRENT_V5_VERSION/local DD_NODE_TRACER_VERSION_5=$V5_VERSION/" ./datadog_wrapper
 
             PR_TITLE="Update Node Tracer V5 to $V5_VERSION"
             PR_BODY="Updated Node Tracer V5 from $CURRENT_V5_VERSION to $V5_VERSION"
