@@ -11,9 +11,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Modify build-packages
+      - name: Try the python
         id: version
         run: |
           set -euo pipefail
 
-          python --version
+          python .github/workflows/test_python.py
