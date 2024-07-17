@@ -68,7 +68,7 @@ setEnvVars() {
         DD_AAS_LINUX_VERSION="v1.10.6"
     fi
 
-    if [ -z "${DD_TRACE_LOG_DIRECTORY}"]; then
+    if [ -z "${DD_TRACE_LOG_DIRECTORY}" ]; then
         DD_TRACE_LOG_DIRECTORY="/home/LogFiles/datadog/${DD_AAS_LINUX_VERSION}"
     fi
 
@@ -108,8 +108,8 @@ getRuntimeDependencies() {
 }
 
 getBinaries() {
-    #Check if we have already installed this version
-    if [ ! -d "${DD_BINARY_DIR}" ]; then
+    # Check if we have already installed this version or if we successfully downloaded binaries before
+    if [ ! -d "${DD_BINARY_DIR}" -o -z "$(ls -A "${DD_BINARY_DIR}")" ]; then
 
         FILE="datadog-aas-${DD_AAS_LINUX_VERSION}.zip"
 
