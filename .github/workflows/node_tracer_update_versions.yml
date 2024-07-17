@@ -15,7 +15,7 @@ jobs:
       - name: Modify build-packages
         id: version
         run: |
-          set -xe
+          set -euo pipefail
 
           CURRENT_V4_VERSION=$(awk '/DD_NODE_TRACER_VERSION_4=/{print}' datadog_wrapper | awk -F '=' '{print $2}' | tr -d '"')
           if [ -z "$CURRENT_V4_VERSION" ]; then
@@ -77,7 +77,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          branch: "node-extension-version-bump"
+          branch: "node-tracers-version-bump"
           commit-message: "${{steps.version.outputs.pr_title}}"
           delete-branch: true
           title: "${{steps.version.outputs.pr_title}}"
