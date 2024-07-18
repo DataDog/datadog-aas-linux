@@ -22,13 +22,13 @@ configs = {
     ),
     "node_v4": Config(
         name="Node.js Tracer v4",
-        version_variable="DD_NODE_TRACER_VERSION_4",
+        version_variable="local DD_NODE_TRACER_VERSION_4",
         repo_name="dd-trace-js",
         major_version_equal_to=4,
     ),
     "node_v5": Config(
         name="Node.js Tracer v5",
-        version_variable="DD_NODE_TRACER_VERSION_5",
+        version_variable="local DD_NODE_TRACER_VERSION_5",
         repo_name="dd-trace-js",
         major_version_equal_to=5,
     ),
@@ -118,7 +118,6 @@ def get_current_version(*, version_variable: str) -> str:
 def get_latest_version(*, repo_name: str, major_version_equal_to: int | None) -> str:
     with urlopen(f"https://api.github.com/repos/datadog/{repo_name}/releases") as r:
         data = json.loads(r.read().decode("utf-8"))
-        print(data)
 
     versions = sorted(
         filter(
@@ -149,10 +148,11 @@ def extract_version(
         return version
 
     [major, _, _] = version.split(".")
+
     if int(major) != major_version_equal_to:
         return None
 
-    return None
+    return version
 
 
 def version_sort_key(version: str) -> tuple[int, int, int]:
