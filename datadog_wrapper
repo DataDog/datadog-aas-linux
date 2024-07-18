@@ -259,7 +259,7 @@ setupPHPEnv() {
 setUpPyEnv() {
     echo "Setting up Datadog tracing for Python"
     if [ -z "${DD_PYTHON_TRACER_VERSION}" ]; then
-        DD_PYTHON_TRACER_VERSION=2.7.4
+        DD_PYTHON_TRACER_VERSION=2.9.2
     fi
 
     pip install "ddtrace==${DD_PYTHON_TRACER_VERSION}"
