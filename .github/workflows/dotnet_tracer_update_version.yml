@@ -1,8 +1,9 @@
 name: Update Version for the .NET Tracer
 
 on:
-  schedule:
-    - cron: '0 14 * * *' # 2:00 PM UTC which is morning in New York
+  # schedule:
+  #   - cron: '0 14 * * *' # 2:00 PM UTC which is morning in New York
+  push:
 
 jobs:
   bump_version:
@@ -15,34 +16,7 @@ jobs:
       - name: Modify build-packages
         id: version
         run: |
-          set -euo pipefail
-
-          CURRENT_VERSION=$(awk '/DD_DOTNET_TRACER_VERSION=/{print}' datadog_wrapper | awk -F '=' '{print $2}' | tr -d '"')
-          if [ -z "$CURRENT_VERSION" ]; then
-            echo "DD_DOTNET_TRACER_VERSION is not set"
-            exit 1
-          fi
-
-          TRACER_RESPONSE=$(curl -s "https://api.github.com/repos/datadog/dd-trace-dotnet/releases")
-
-          NEWEST_VERSION=$(echo "$TRACER_RESPONSE" | jq -r --arg pattern "[0-9]+\.[0-9]+\.[0-9]+" '.[] | select(.tag_name | test($pattern)) | .tag_name' | tr -d "v" | sort -V | tail -n 1)
-          if [ -z "$NEWEST_VERSION" ]; then
-            echo "Could not find a version for the .NET Tracer"
-            exit 1
-          fi
-
-          if [ "$NEWEST_VERSION" != "$CURRENT_VERSION" ]; then
-            echo "Updating DD_DOTNET_TRACER_VERSION from $CURRENT_VERSION to $NEWEST_VERSION"
-            sed -i -e "s/DD_DOTNET_TRACER_VERSION=$CURRENT_VERSION/DD_DOTNET_TRACER_VERSION=$NEWEST_VERSION/" ./datadog_wrapper
-
-            PR_TITLE="Update .NET Tracer to $NEWEST_VERSION"
-            PR_BODY="Updated .NET Tracer from $CURRENT_VERSION to $NEWEST_VERSION"
-          else
-            echo "DD_DOTNET_TRACER_VERSION is already up to date"
-          fi
-
-          echo "pr_title=$PR_TITLE" >> "$GITHUB_OUTPUT"
-          echo "pr_body=$PR_BODY" >> "$GITHUB_OUTPUT"
+          python .github/workflows/datadog_wrapper_tracer_update.py --tracer dotnet
 
       - name: Create Pull Request
         id: pr
