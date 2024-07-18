@@ -1,0 +1,36 @@
+name: Update Version for the Java Tracer
+
+on:
+  schedule:
+    - cron: '0 14 * * *' # 2:00 PM UTC which is morning in New York
+
+jobs:
+  bump_version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Modify build-packages
+        id: version
+        run: |
+          python .github/workflows/datadog_wrapper_tracer_update.py --tracer java
+
+      - name: Create Pull Request
+        id: pr
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c  # v6.1.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: "java-tracer-version-bump"
+          commit-message: "${{steps.version.outputs.pr_title}}"
+          delete-branch: true
+          title: "${{steps.version.outputs.pr_title}}"
+          body: "${{steps.version.outputs.pr_body}}"
+
+      - name: Display output
+        run: |
+          echo "Pull Request Number - ${{ steps.pr.outputs.pull-request-number }}"
+          echo "Pull Request URL - ${{ steps.pr.outputs.pull-request-url }}"
+
+
