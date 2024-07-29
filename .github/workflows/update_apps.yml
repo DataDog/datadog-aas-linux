@@ -1,3 +1,6 @@
+# Disabled in favor of 
+# https://github.com/DataDog/serverless-self-monitoring/blob/main/self_monitor/azure/launch.sh
+
 name: update_self_monitoring_apps
 
 on:
