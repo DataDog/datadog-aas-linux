@@ -23,18 +23,19 @@ main() {
     mkdir -p "${DD_DIR}" && cd "${DD_DIR}" || return
 
     # Check if we are in a sidecar environment to skip binary installation
-    if [ "$FRAMEWORK" != "SITECONTAINERS" ]; then
-        echo "Adding Runtime specific dependencies"
-        getRuntimeDependencies
+    # TESTING IN DEV ENVIRONMENT...FRAMEWORK IS INCORRECT SO COMMENTING IT ALL OUT
+    # if [ "$FRAMEWORK" != "SITECONTAINERS" ]; then
+    #     echo "Adding Runtime specific dependencies"
+    #     getRuntimeDependencies
 
-        echo "Getting the Datadog binaries"
-        getBinaries
+    #     echo "Getting the Datadog binaries"
+    #     getBinaries
 
-        echo "Starting the appropriate Datadog binaries"
-        startBinaries
-    else
-        echo "Running in sidecar mode."
-    fi
+    #     echo "Starting the appropriate Datadog binaries"
+    #     startBinaries
+    # else
+    #     echo "Running in sidecar mode."
+    # fi
 
     case "$WEBSITE_STACK" in
         "NODE")
