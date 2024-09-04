@@ -25,12 +25,6 @@ main() {
     echo "Adding Runtime specific dependencies"
     getRuntimeDependencies
 
-    echo "Getting the Datadog binaries"
-    getBinaries
-
-    echo "Starting the appropriate Datadog binaries"
-    startBinaries
-
     case "$WEBSITE_STACK" in
         "NODE")
             setUpNodeEnv;;
@@ -60,20 +54,12 @@ setEnvVars() {
         DD_DIR="/home/datadog"
     fi
 
-    if [ -z "${DD_BINARIES_URL}" ]; then
-        DD_BINARIES_URL="https://github.com/DataDog/datadog-aas-linux/releases/download"
-    fi
-
     if [ -z "${DD_AAS_LINUX_VERSION}" ]; then
-        DD_AAS_LINUX_VERSION="v1.10.7"
+        DD_AAS_LINUX_VERSION="v2.0.0"
     fi
 
     if [ -z "${DD_TRACE_LOG_DIRECTORY}" ]; then
         DD_TRACE_LOG_DIRECTORY="/home/LogFiles/datadog/${DD_AAS_LINUX_VERSION}"
-    fi
-
-    if [ -z "${DD_BINARY_DIR}" ]; then
-        DD_BINARY_DIR="${DD_DIR}/${DD_AAS_LINUX_VERSION}"
     fi
 
     if [ -z "${DD_TRACE_ENABLED}" ]; then
@@ -91,12 +77,11 @@ setEnvVars() {
 }
 
 getRuntimeDependencies() {
-    # If we are in Java, Tomcat or PHP stacks, we need to find the linux type to install unzip and curl
+    # If we are in Java, Tomcat or PHP stacks, we need to find the linux type to install curl
     if [ "${WEBSITE_STACK}" == "JAVA" ] || [ "${WEBSITE_STACK}" == "TOMCAT" ] || [ "${WEBSITE_STACK}" == "PHP" ]; then
         LINUX_VERSION_NAME=$(. "/etc/os-release"; echo "$ID")
         if [ "${LINUX_VERSION_NAME}" == "ubuntu" ] || [ "${LINUX_VERSION_NAME}" == "debian" ]; then
             apt-get update
-            apt-get install -y unzip
             apt-get install -y curl
         else
             apk add curl
@@ -104,52 +89,6 @@ getRuntimeDependencies() {
             apk add gcompat
             ln -sfv ld-linux-x86-64.so.2 /lib/libresolv.so.2
         fi
-    fi
-}
-
-getBinaries() {
-    # Check if we have already installed this version or if we successfully downloaded binaries before
-    if [ ! -d "${DD_BINARY_DIR}" -o -z "$(ls -A "${DD_BINARY_DIR}")" ]; then
-
-        FILE="datadog-aas-${DD_AAS_LINUX_VERSION}.zip"
-
-        echo "Downloading Datadog AAS binary ${DD_BINARIES_URL}/${DD_AAS_LINUX_VERSION}/${FILE}"
-        if curl -L --fail "${DD_BINARIES_URL}/${DD_AAS_LINUX_VERSION}/${FILE}" -o "${FILE}"; then
-            echo "Unzipping files"
-            unzip "${FILE}" || return
-            echo "Removing zip file"
-            rm "${FILE}"
-
-            echo "Creating logs directory at ${DD_TRACE_LOG_DIRECTORY}"
-            mkdir -p "${DD_TRACE_LOG_DIRECTORY}"
-
-            # patch the datadog yaml file to set the aas version for logging path for easier navigation
-            sed -i 's\{AAS_LINUX_VERSION}\'"$DD_AAS_LINUX_VERSION"'\g' "${DD_BINARY_DIR}"/datadog.yaml
-            # patch the dogstatsD yaml file to set the aas version for logging path for easier navigation
-            sed -i 's\{AAS_LINUX_VERSION}\'"$DD_AAS_LINUX_VERSION"'\g' "${DD_BINARY_DIR}"/dogstatsd.yaml
-
-        else
-            echo "Failed to download the Datadog binary succesfully."
-            return
-        fi
-
-    else
-        echo "Version ${DD_AAS_LINUX_VERSION} of Datadog AAS previously installed"
-    fi
-}
-
-startBinaries() {
-
-    BINARY_DIR="${DD_DIR}/${DD_AAS_LINUX_VERSION}"
-
-    if [ "${DD_TRACE_ENABLED}" = "true" ]; then
-        echo "Starting the trace agent"
-        eval "${DD_BINARY_DIR}/process_manager ${BINARY_DIR}/trace-agent run -c ${DD_BINARY_DIR}/datadog.yaml &"
-    fi
-
-    if [ "$DD_CUSTOM_METRICS_ENABLED" = "true" ] || [ "$DD_RUNTIME_METRICS_ENABLED" = "true" ]; then
-        echo "Starting DogStatsD"
-        eval "${DD_BINARY_DIR}/process_manager ${BINARY_DIR}/dogstatsd start -c ${DD_BINARY_DIR}/dogstatsd.yaml &"
     fi
 }
 

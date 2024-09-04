@@ -12,26 +12,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build the Docker image
-        uses: docker/build-push-action@v4
-        with:
-          file: ../../Dockerfile
-          platforms: linux/amd64
-          build-args: |
-            AGENT_VERSION=7.52.0
-            RELEASE_VERSION=${{ github.ref_name }}
-          tags: datadog-aas
-          load: true
-      - name: Extract zip file
-        run: docker cp $(docker create datadog-aas):/datadog-aas-${{ github.ref_name }}.zip .
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           prerelease: true
           name: ${{ github.ref_name }}
           files: |
-            datadog-aas-${{ github.ref_name }}.zip
             datadog_wrapper

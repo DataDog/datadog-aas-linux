@@ -1,2 +1,0 @@
-apm_config:
-  log_file: /home/LogFiles/datadog/{AAS_LINUX_VERSION}/trace-log.txt
