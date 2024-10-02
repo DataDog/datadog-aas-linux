@@ -28,7 +28,7 @@ jobs:
       - name: Extract zip file
         run: docker cp $(docker create datadog-aas):/datadog-aas-${{ github.ref_name }}.zip .
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           prerelease: true
           name: ${{ github.ref_name }}
