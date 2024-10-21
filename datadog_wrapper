@@ -17,6 +17,9 @@ main() {
 
     echo "Set application directory as ${CURRENT_DIR}"
 
+    apt-get update
+    apt-get install -y git
+
     echo "Setting Datadog environment variables"
     setEnvVars
 
