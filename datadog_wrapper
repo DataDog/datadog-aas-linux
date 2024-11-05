@@ -161,7 +161,7 @@ setUpNodeEnv() {
     echo "Installing Node tracer"
 
     local DD_NODE_TRACER_VERSION_4=4.47.1
-    local DD_NODE_TRACER_VERSION_5=5.23.1
+    local DD_NODE_TRACER_VERSION_5=5.24.0
 
     if [[ "$NODE_RUNTIME_VERSION" =~ ^v16.* ]]; then
         yarn add "dd-trace@$DD_NODE_TRACER_VERSION_4" || return
