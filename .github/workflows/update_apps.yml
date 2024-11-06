@@ -1,4 +1,4 @@
-# Disabled in favor of 
+# Disabled in favor of
 # https://github.com/DataDog/serverless-self-monitoring/blob/main/self_monitor/azure/launch.sh
 
 name: update_self_monitoring_apps
@@ -13,6 +13,9 @@ permissions:
 jobs:
   update_apps:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      packages: write
     # Set the env for Azure managed identity federated credentials for OIDC
     # https://github.com/marketplace/actions/azure-login#login-with-openid-connect-oidc-recommendeda
     environment: dev
