@@ -66,7 +66,7 @@ setEnvVars() {
     fi
 
     if [ -z "${DD_AAS_LINUX_VERSION}" ]; then
-        DD_AAS_LINUX_VERSION="v1.10.9"
+        DD_AAS_LINUX_VERSION="v1.10.10"
     fi
 
     if [ -z "${DD_TRACE_LOG_DIRECTORY}" ]; then
