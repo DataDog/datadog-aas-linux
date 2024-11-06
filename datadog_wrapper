@@ -160,7 +160,7 @@ setUpNodeEnv() {
     echo "Setting up Datadog tracing for Node"
     echo "Installing Node tracer"
 
-    local DD_NODE_TRACER_VERSION_4=4.48.0
+    local DD_NODE_TRACER_VERSION_4=4.49.0
 
     local DD_NODE_TRACER_VERSION_5=5.25.0
 
