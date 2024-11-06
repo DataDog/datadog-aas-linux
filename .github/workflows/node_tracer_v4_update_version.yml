@@ -1,7 +1,7 @@
 name: Update Version for the Node Tracer v4
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
   schedule:
     - cron: '0 14 * * *' # 2:00 PM UTC which is morning in New York
 
