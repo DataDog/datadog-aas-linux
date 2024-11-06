@@ -8,6 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      packages: write
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
