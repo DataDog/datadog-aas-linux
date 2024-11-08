@@ -3,7 +3,7 @@
 main() {
     # Required to add the AAS metadata
     export DD_AZURE_APP_SERVICES=1
-    export DD_HOSTNAME="none"
+    # export DD_HOSTNAME="none"
     export DD_APM_REMOTE_TAGGER=false
 
     # Remote Config does not work in AAS. It must be disabled.
@@ -140,17 +140,14 @@ getBinaries() {
 }
 
 startBinaries() {
-
-    BINARY_DIR="${DD_DIR}/${DD_AAS_LINUX_VERSION}"
-
     if [ "${DD_TRACE_ENABLED}" = "true" ]; then
         echo "Starting the trace agent"
-        eval "${DD_BINARY_DIR}/process_manager ${BINARY_DIR}/trace-agent run -c ${DD_BINARY_DIR}/datadog.yaml &"
+        eval "${DD_BINARY_DIR}/process_manager ${DD_BINARY_DIR}/trace-agent run -c ${DD_BINARY_DIR}/datadog.yaml &"
     fi
 
     if [ "$DD_CUSTOM_METRICS_ENABLED" = "true" ] || [ "$DD_RUNTIME_METRICS_ENABLED" = "true" ]; then
         echo "Starting DogStatsD"
-        eval "${DD_BINARY_DIR}/process_manager ${BINARY_DIR}/dogstatsd start -c ${DD_BINARY_DIR}/dogstatsd.yaml &"
+        eval "${DD_BINARY_DIR}/process_manager ${DD_BINARY_DIR}/dogstatsd start -c ${DD_BINARY_DIR}/dogstatsd.yaml &"
     fi
 }
 
