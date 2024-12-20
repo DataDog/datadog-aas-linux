@@ -66,7 +66,7 @@ setEnvVars() {
     fi
 
     if [ -z "${DD_AAS_LINUX_VERSION}" ]; then
-        DD_AAS_LINUX_VERSION="v1.10.12"
+        DD_AAS_LINUX_VERSION="v1.10.13"
     fi
 
     if [ -z "${DD_TRACE_LOG_DIRECTORY}" ]; then
@@ -157,9 +157,9 @@ setUpNodeEnv() {
     echo "Setting up Datadog tracing for Node"
     echo "Installing Node tracer"
 
-    local DD_NODE_TRACER_VERSION_4=4.49.0
+    local DD_NODE_TRACER_VERSION_4=4.54.0
 
-    local DD_NODE_TRACER_VERSION_5=5.29.1
+    local DD_NODE_TRACER_VERSION_5=5.30.0
 
     if [[ "$NODE_RUNTIME_VERSION" =~ ^v16.* ]]; then
         yarn add "dd-trace@$DD_NODE_TRACER_VERSION_4" || return
