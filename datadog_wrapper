@@ -171,7 +171,7 @@ setUpNodeEnv() {
     ORIG_NODE_PATH=$NODE_PATH
 
     export NODE_OPTIONS="--require=dd-trace/init ${ORIG_NODE_OPTIONS}"
-    export NODE_PATH="${ORIG_NODE_PATH};/home/site/wwwroot/node_modules;${DD_DIR}/node_modules"
+    export NODE_PATH="${ORIG_NODE_PATH}:/home/site/wwwroot/node_modules:${DD_DIR}/node_modules"
 
     # confirm updates to NODE_OPTIONS
     node --help >/dev/null || (export NODE_OPTIONS="${ORIG_NODE_OPTIONS}" && export NODE_PATH="${ORIG_NODE_PATH}" && return)
