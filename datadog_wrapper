@@ -162,6 +162,10 @@ setUpNodeEnv() {
         # use provided tracer version in DD_NODE_TRACER_VERSION if available, otherwise use the default version
         local DD_NODE_TRACER_VERSION_TO_INSTALL="${DD_NODE_TRACER_VERSION:-$DD_DEFAULT_NODE_TRACER_VERSION_5}"
 
+        # create package.json if it does not already exist, otherwise the npm install command will fail
+        echo "Initializing npm package"
+        npm init -y
+
         echo "Installing Datadog Node tracer ${DD_NODE_TRACER_VERSION_TO_INSTALL}"
         npm install dd-trace@${DD_NODE_TRACER_VERSION_TO_INSTALL}
     fi
