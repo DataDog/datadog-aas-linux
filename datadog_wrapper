@@ -152,8 +152,6 @@ startBinaries() {
 }
 
 setUpNodeEnv() {
-    NODE_RUNTIME_VERSION=$(node --version)
-    echo "Found runtime version ${NODE_RUNTIME_VERSION}"
     echo "Setting up Datadog tracing for Node"
 
     if [ "${DD_NODE_TRACER_SKIP_INSTALL}" = "true" ]; then
