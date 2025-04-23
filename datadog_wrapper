@@ -173,11 +173,11 @@ setUpNodeEnv() {
 
     # use tracer installed as part of application build if available, otherwise use the tracer installed by this script
     export NODE_PATH="${MODIFIED_ORIG_NODE_PATH}:/home/site/wwwroot/node_modules:${DD_DIR}/node_modules"
-    echo "NODE_PATH updated from ${ORIG_NODE_PATH} to ${NODE_PATH}"
+    echo "NODE_PATH updated from '${ORIG_NODE_PATH}' to '${NODE_PATH}'"
 
     ORIG_NODE_OPTIONS=$NODE_OPTIONS
     export NODE_OPTIONS="--require=dd-trace/init ${ORIG_NODE_OPTIONS}"
-    echo "NODE_OPTIONS updated from ${ORIG_NODE_OPTIONS} to ${NODE_OPTIONS}"
+    echo "NODE_OPTIONS updated from '${ORIG_NODE_OPTIONS}' to '${NODE_OPTIONS}'"
 
     # confirm updates to NODE_OPTIONS and NODE_PATH
     node --help >/dev/null || (export NODE_OPTIONS="${ORIG_NODE_OPTIONS}" && export NODE_PATH="${ORIG_NODE_PATH}" && return)
