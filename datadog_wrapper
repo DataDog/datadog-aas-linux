@@ -160,9 +160,9 @@ setUpNodeEnv() {
     local DD_NODE_TRACER_VERSION_5=5.48.1
 
     if [ -z "${DD_NODE_TRACER_VERSION}" ]; then
-        yarn add "dd-trace@$DD_NODE_TRACER_VERSION_5"
+        npm install "dd-trace@$DD_NODE_TRACER_VERSION_5"
     else
-        yarn add "dd-trace@$DD_NODE_TRACER_VERSION"
+        npm install "dd-trace@$DD_NODE_TRACER_VERSION"
     fi
 
     ORIG_NODE_OPTIONS=$NODE_OPTIONS
