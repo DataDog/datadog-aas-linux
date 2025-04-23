@@ -254,7 +254,7 @@ setUpJavaEnv() {
 setupPHPEnv() {
     echo "Setting up Datadog tracing for PHP"
     if [ -z "${DD_PHP_TRACER_VERSION}" ]; then
-        DD_PHP_TRACER_VERSION=1.4.2
+        DD_PHP_TRACER_VERSION=1.8.3
     fi
 
     DD_PHP_TRACER_URL=https://github.com/DataDog/dd-trace-php/releases/download/${DD_PHP_TRACER_VERSION}/datadog-setup.php
