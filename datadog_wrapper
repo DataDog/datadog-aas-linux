@@ -168,11 +168,21 @@ setUpNodeEnv() {
         npm install dd-trace@${DD_NODE_TRACER_VERSION_TO_INSTALL}
     fi
 
-    ORIG_NODE_OPTIONS=$NODE_OPTIONS
-    export NODE_OPTIONS="--require=${DD_DIR}/node_modules/dd-trace/init ${ORIG_NODE_OPTIONS}"
+    ORIG_NODE_PATH=$NODE_PATH
 
-    # confirm updates to NODE_OPTIONS
-    node --help >/dev/null || (export NODE_OPTIONS="${ORIG_NODE_OPTIONS}" && return)
+    # remove trailing colon if present
+    [[ "${ORIG_NODE_PATH}" == *: ]] && MODIFIED_ORIG_NODE_PATH="${ORIG_NODE_PATH::-1}"
+
+    # use tracer installed as part of application build if available, otherwise use the tracer installed by this script
+    export NODE_PATH="${MODIFIED_ORIG_NODE_PATH}:/home/site/wwwroot/node_modules:${DD_DIR}/node_modules"
+    echo "NODE_PATH updated from ${ORIG_NODE_PATH} to ${NODE_PATH}"
+
+    ORIG_NODE_OPTIONS=$NODE_OPTIONS
+    export NODE_OPTIONS="--require=dd-trace/init ${ORIG_NODE_OPTIONS}"
+    echo "NODE_OPTIONS updated from ${ORIG_NODE_OPTIONS} to ${NODE_OPTIONS}"
+
+    # confirm updates to NODE_OPTIONS and NODE_PATH
+    node --help >/dev/null || (export NODE_OPTIONS="${ORIG_NODE_OPTIONS}" && export NODE_PATH="${ORIG_NODE_PATH}" && return)
 }
 
 setUpDotnetEnv() {
