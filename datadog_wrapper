@@ -157,7 +157,7 @@ setUpNodeEnv() {
     if [ "${DD_NODE_TRACER_SKIP_INSTALL}" = "true" ]; then
         echo "DD_NODE_TRACER_SKIP_INSTALL set to true, skipping Datadog Node tracer installation"
     else
-        local DD_DEFAULT_NODE_TRACER_VERSION_5=5.48.1
+        local DD_DEFAULT_NODE_TRACER_VERSION_5=5.52.0
 
         # use provided tracer version in DD_NODE_TRACER_VERSION if available, otherwise use the default version
         local DD_NODE_TRACER_VERSION_TO_INSTALL="${DD_NODE_TRACER_VERSION:-$DD_DEFAULT_NODE_TRACER_VERSION_5}"
