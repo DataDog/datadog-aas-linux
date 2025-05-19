@@ -20,15 +20,9 @@ configs = {
         repo_name="dd-trace-dotnet",
         major_version_equal_to=None,
     ),
-    "node_v4": Config(
-        name="Node.js Tracer v4",
-        version_variable="local DD_NODE_TRACER_VERSION_4",
-        repo_name="dd-trace-js",
-        major_version_equal_to=4,
-    ),
     "node_v5": Config(
         name="Node.js Tracer v5",
-        version_variable="local DD_NODE_TRACER_VERSION_5",
+        version_variable="local DD_DEFAULT_NODE_TRACER_VERSION_5",
         repo_name="dd-trace-js",
         major_version_equal_to=5,
     ),
