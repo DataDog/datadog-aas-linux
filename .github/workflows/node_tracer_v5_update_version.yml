@@ -20,7 +20,7 @@ jobs:
         id: octo-sts
         with:
           scope: DataDog/datadog-aas-linux
-          policy: self.node-tracer-v5-update.create-pr
+          policy: self.tracer-v5-update.create-pr
 
       - name: Modify build-packages
         id: version

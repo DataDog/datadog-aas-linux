@@ -14,7 +14,7 @@ jobs:
   update_apps:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write # This is required for getting the required OIDC token from GitHub
+      pull-requests: write
       packages: write
     # Set the env for Azure managed identity federated credentials for OIDC
     # https://github.com/marketplace/actions/azure-login#login-with-openid-connect-oidc-recommendeda
@@ -22,12 +22,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - uses: DataDog/dd-octo-sts-action@acaa02eee7e3bb0839e4272dacb37b8f3b58ba80 # v1.0.3
-        id: octo-sts
-        with:
-          scope: DataDog/datadog-aas-linux
-          policy: self.update-apps
 
       - name: Azure login
         uses: azure/login@v2

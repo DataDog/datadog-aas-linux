@@ -1,0 +1,13 @@
+issuer: https://token.actions.githubusercontent.com
+
+subject: repo:DataDog/datadog-aas-linux:ref:refs/heads/main
+
+claim_pattern:
+  event_name: (schedule|workflow_dispatch)
+  ref: refs/heads/main
+  ref_protected: "true"
+  job_workflow_ref: DataDog/datadog-aas-linux/\.github/workflows/.*_tracer_.*update_version\.yml@refs/heads/main
+
+permissions:
+  contents: write
+  pull_requests: write
