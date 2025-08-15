@@ -228,7 +228,7 @@ setUpDotnetEnv() {
 setUpJavaEnv() {
     echo "Setting up Datadog tracing for Java"
     if [ -z "${DD_JAVA_TRACER_VERSION}" ]; then
-        DD_JAVA_TRACER_VERSION=1.49.0
+        DD_JAVA_TRACER_VERSION=1.52.1
     fi
 
     echo "Using version ${DD_JAVA_TRACER_VERSION} of the JAVA tracer"
