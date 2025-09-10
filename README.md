@@ -1,3 +1,10 @@
+>[!WARNING]
+> The AAS Linux Wrapper is now **deprecated**.
+>It will continue to receive layer bumps but no new features.
+> It will be retired on January 1, 2026, at which point no further updates will be provided.
+>
+> We strongly recommend switching to the [sidecar instrumentation method](https://docs.datadoghq.com/serverless/azure_app_service/linux_code) as soon as possible.
+
 This readme outlines how to set up Datadog tracing with your Azure App Service Linux application. Making the following changes in the Azure portal will allow the tracer to initialize when your application is started.
 
 _Note: Currently Java, NODE, .NET, PHP and Python are supported._
