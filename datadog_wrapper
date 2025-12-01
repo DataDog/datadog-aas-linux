@@ -190,7 +190,7 @@ setUpNodeEnv() {
 setUpDotnetEnv() {
     echo "Setting up Datadog tracing for .NET"
     if [ -z "${DD_DOTNET_TRACER_VERSION}" ]; then
-        DD_DOTNET_TRACER_VERSION=3.26.1
+        DD_DOTNET_TRACER_VERSION=3.32.0
     fi
 
     # Set a tracer directory to avoid issues with unarchiving
