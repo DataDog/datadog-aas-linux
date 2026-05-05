@@ -1,6 +1,6 @@
 >[!WARNING]
 > The AAS Linux Wrapper is **deprecated** as of March 1, 2026.
-> You can continue to use the wrapper, however no further updates, fixes, or support will be provided.
+> You can continue to use the wrapper, however no further updates, fixes, security patches, or support will be provided.
 >
 > We strongly recommend switching to the [sidecar instrumentation method](https://docs.datadoghq.com/serverless/azure_app_service/linux_code) as soon as possible.
 
